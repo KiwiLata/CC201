@@ -13,11 +13,20 @@ spec:
     spec:
       containers:
       - name: hello-world
-        image: us.icr.io/<my_namespace>/hello-world:3
+        image: us.icr.io/sn-labs-<namespace>/hello-world:3
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         envFrom:
         - configMapRef:
             name: app-config
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          capabilities:
+            drop: ["ALL"]
+          seccompProfile:
+            type: "RuntimeDefault"
+          runAsUser: 999
       imagePullSecrets:
         - name: icr
