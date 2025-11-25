@@ -6,3 +6,4 @@ RUN npm install &&\
     apk upgrade
 EXPOSE  8080
 CMD node app.js
+USER 9000:9000
